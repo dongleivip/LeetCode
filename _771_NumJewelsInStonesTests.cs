@@ -16,6 +16,16 @@ namespace LeetCode
             Assert.Equal(3, result);
         }
 
+        [Fact]
+        public void ShouldReturnZero()
+        {
+            var J = "z";
+            var S = "ZZ";
+
+            var result = NumJewelsInStones(J, S);
+            Assert.Equal(0, result);
+        }
+
         public int NumJewelsInStones(string J, string S)
         {
             var jewels = J.ToCharArray();
@@ -24,8 +34,7 @@ namespace LeetCode
                           .GroupBy(x => x)
                           .ToDictionary(y => y.Key, y => y.Count());
 
-            var count = jewels.Sum(j => stones[j]);
-            return count;
+            return jewels.Sum(j => stones.ContainsKey(j) ? stones[j] : 0);
         }
     }
 }
